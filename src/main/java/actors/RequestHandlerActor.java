@@ -17,7 +17,6 @@ public class RequestHandlerActor extends MyActor {
 
     RequestHandlerActor(String name, long pid) {
         super(name, pid);
-
         Request request = new Request.Builder().url("http://localhost:4000/iot").build();
         OkHttpClient client = new OkHttpClient.Builder().readTimeout(0, TimeUnit.SECONDS).build();
         OkSse okSse = new OkSse(client);
