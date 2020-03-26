@@ -1,0 +1,42 @@
+Mar 26, 2020 5:12:52 AM actors.LoggerActor <init>
+INFO: My first log
+Mar 26, 2020 5:12:55 AM actors.LoggerActor parseMessage
+INFO: {"temp":6.807484884803913,"humidity":49.74296947744549,"wind":31.955532697038272,"pressure":705.1427002775645,"light":125.78571428571429,"timestamp":1585192373356130,"forecast":"CLOUDY"}
+Mar 26, 2020 5:12:56 AM actors.LoggerActor parseMessage
+INFO: {"temp":10.267175227309403,"humidity":46.827696715068384,"wind":20.953191598079165,"pressure":693.4247685155543,"light":135.88,"timestamp":1585192373362351,"forecast":"JUST_A_NORMAL_DAY"}
+Mar 26, 2020 5:12:56 AM actors.LoggerActor parseMessage
+INFO: {"temp":7.430754743940951,"humidity":52.39424576838912,"wind":25.621085571293744,"pressure":700.6542105380693,"light":122.8409090909091,"timestamp":1585192373558456,"forecast":"CLOUDY"}
+Mar 26, 2020 5:12:57 AM actors.LoggerActor parseMessage
+INFO: {"temp":10.029022131079378,"humidity":48.292003608041576,"wind":23.93138292633821,"pressure":701.6159691120611,"light":131.52100840336135,"timestamp":1585192373783076,"forecast":"JUST_A_NORMAL_DAY"}
+Mar 26, 2020 5:12:57 AM actors.LoggerActor parseMessage
+INFO: {"temp":10.741080355973457,"humidity":49.82346393861182,"wind":25.33013355274005,"pressure":699.6092628732201,"light":130.92348754448398,"timestamp":1585192373357118,"forecast":"JUST_A_NORMAL_DAY"}
+Mar 26, 2020 5:12:58 AM actors.LoggerActor parseMessage
+INFO: {"temp":11.452998489879853,"humidity":47.34314872233726,"wind":25.24143518953814,"pressure":699.8907112334372,"light":127.03164556962025,"timestamp":1585192377309445,"forecast":"CLOUDY"}
+Mar 26, 2020 5:12:58 AM actors.LoggerActor parseMessage
+INFO: {"temp":8.34548060124672,"humidity":49.58851660109548,"wind":24.680141908277474,"pressure":700.0637275973172,"light":122.14788732394366,"timestamp":1585192378007503,"forecast":"CLOUDY"}
+Mar 26, 2020 5:12:59 AM actors.LoggerActor parseMessage
+INFO: {"temp":10.00759272510694,"humidity":48.58594564166309,"wind":24.916517568230915,"pressure":696.3126369693813,"light":126.53571428571429,"timestamp":1585192378004669,"forecast":"CLOUDY"}
+Mar 26, 2020 5:12:59 AM actors.LoggerActor parseMessage
+INFO: {"temp":9.454028118089461,"humidity":50.75661200924249,"wind":26.105616866630864,"pressure":698.6971963354019,"light":133.54032258064515,"timestamp":1585192379112817,"forecast":"JUST_A_NORMAL_DAY"}
+Mar 26, 2020 5:13:00 AM actors.LoggerActor parseMessage
+INFO: {"temp":10.606416068902362,"humidity":52.551389191952154,"wind":21.486542941758437,"pressure":698.3878397293904,"light":125.63888888888889,"timestamp":1585192379121067,"forecast":"JUST_A_NORMAL_DAY"}
+Mar 26, 2020 5:13:00 AM actors.LoggerActor parseMessage
+INFO: {"temp":10.6431591175774,"humidity":50.524139018391594,"wind":25.380655520306462,"pressure":703.9009448330818,"light":123.02142857142857,"timestamp":1585192379212536,"forecast":"CLOUDY"}
+Mar 26, 2020 5:13:01 AM actors.LoggerActor parseMessage
+INFO: {"temp":10.10842733295495,"humidity":53.9579449821931,"wind":25.483121663230495,"pressure":700.4999492086969,"light":131.47590361445782,"timestamp":1585192379116386,"forecast":"CLOUDY"}
+Mar 26, 2020 5:13:01 AM actors.LoggerActor parseMessage
+INFO: {"temp":12.801007774927196,"humidity":50.09608883896898,"wind":23.975884271602666,"pressure":693.2000449289307,"light":121.63815789473684,"timestamp":1585192379432354,"forecast":"JUST_A_NORMAL_DAY"}
+Mar 26, 2020 5:13:02 AM actors.LoggerActor parseMessage
+INFO: {"temp":9.010230749774342,"humidity":50.70238205423593,"wind":24.178071214443275,"pressure":696.2099630410348,"light":127.44047619047619,"timestamp":1585192380673688,"forecast":"CLOUDY"}
+Mar 26, 2020 5:13:02 AM actors.LoggerActor parseMessage
+INFO: {"temp":10.086968922247916,"humidity":51.91320561296543,"wind":22.574880858070518,"pressure":708.2955097495027,"light":122.18333333333334,"timestamp":1585192381361486,"forecast":"JUST_A_NORMAL_DAY"}
+Mar 26, 2020 5:13:03 AM actors.LoggerActor parseMessage
+INFO: {"temp":12.57060991022258,"humidity":62.42983893411074,"wind":16.283916518356644,"pressure":696.5872306008154,"light":97.875,"timestamp":1585192382909512,"forecast":"CLOUDY"}
+Mar 26, 2020 5:14:02 AM actors.LoggerActor parseMessage
+INFO: {"temp":12.952296515354291,"humidity":48.77597456431257,"wind":25.287434971724327,"pressure":714.772568152731,"light":116.20833333333333,"timestamp":1585192383511529,"forecast":"CLOUDY"}
+Mar 26, 2020 5:14:02 AM actors.LoggerActor parseMessage
+INFO: {"temp":10.714624542591157,"humidity":48.79794270252551,"wind":24.652232924828937,"pressure":700.0106180162783,"light":129.94565217391303,"timestamp":1585192384028526,"forecast":"JUST_A_NORMAL_DAY"}
+Mar 26, 2020 5:14:03 AM actors.LoggerActor parseMessage
+INFO: {"temp":8.071088456232978,"humidity":49.0151137388567,"wind":23.6126718337552,"pressure":699.8965703077225,"light":130.7622950819672,"timestamp":1585192384188514,"forecast":"JUST_A_NORMAL_DAY"}
+Mar 26, 2020 5:14:03 AM actors.LoggerActor parseMessage
+INFO: {"temp":7.735190338730988,"humidity":48.896334831556146,"wind":25.53291027858288,"pressure":701.4210539661314,"light":131.01923076923077,"timestamp":1585192384315816,"forecast":"JUST_A_NORMAL_DAY"}
