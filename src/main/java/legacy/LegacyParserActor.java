@@ -1,40 +1,45 @@
-package actors;
+package legacy;
 
+import actors.MyActor;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import common.Utils;
-import model.MyEvent;
+import com.fasterxml.jackson.dataformat.xml.XmlMapper;
+import model.ModelAdapter;
 import model.Packet;
-import model.ParsedData;
+import model.receive.MyLegacySensorReceive;
+import model.receive.MyLegacySensorReceiveWrapper;
+import model.receive.MySensorReceive;
 
 import java.io.IOException;
 
 import static common.Utils.safeSleep;
 
-public class ParserActor extends MyActor {
-
+public class LegacyParserActor extends MyActor {
+    public static final String host_name = "legacy_parser";
+    public static final String publish_name = "legacy_publisher";
     int workersCount = 0;
     int currentWorker = 0;
     long previousQueueSize = 0;
+    int maxWorkers = 3;
 
     public static void main(String[] args) {
-        new ParserActor(args[0], Long.parseLong(args[1]));
+        new LegacyParserActor(args[0], Long.parseLong(args[1]));
     }
 
-    ParserActor(String name, long pid) {
+    LegacyParserActor(String name, long pid) {
         super(name, pid);
     }
 
     @Override
-    void parseMessage(Packet packet) {
+    public void parseMessage(Packet packet) {
         spawnOrRemoveWorker();
         deliverPacketToParser(packet);
     }
 
     private void spawnOrRemoveWorker() {
-        if (this.name.equals("parser")) {
-            if (isQueueGrowing() && workersCount < 5) {
+        if (this.name.equals(host_name)) {
+            if (isQueueGrowing() && workersCount < maxWorkers) {
                 spawnWorker();
             }
         }
@@ -44,42 +49,38 @@ public class ParserActor extends MyActor {
         if (currentWorker > workersCount) {
             currentWorker = 0;
         }
-        if (workersCount > 10 && currentWorker == 0) {
-            currentWorker = 1;
-        }
         if (currentWorker == 0) {
             parseInternal(packet);
         } else {
-            String workerName = "internal" + currentWorker;
+            String workerName = prefix() + currentWorker;
             if (!isActorAlive(workerName)) {
-                spawn(workerName, ParserActor.class);
+                spawn(workerName, LegacyParserActor.class);
             }
             sendMessage(workerName, packet.getData());
         }
         currentWorker++;
     }
 
+    private String prefix() {
+        return host_name + "_internal";
+    }
+
     private void parseInternal(Packet packet) {
         safeSleep(1);
         ObjectMapper mapper = new ObjectMapper();
-        mapper.configure(DeserializationFeature.UNWRAP_ROOT_VALUE, true);
+        XmlMapper xmlMapper = new XmlMapper();
         try {
-            MyEvent e = mapper.readValue(packet.getData(), MyEvent.class);
-            sendToAggregator(formatString(e));
+            MyLegacySensorReceiveWrapper tmp = mapper.readValue(packet.getData(), MyLegacySensorReceiveWrapper.class);
+            MyLegacySensorReceive e = xmlMapper.readValue(tmp.getMessage(), MyLegacySensorReceive.class);
+            sendToPublisher(formatString(e));
         } catch (IOException e) {
-//            e.printStackTrace();
-            if (!this.name.equals("parser"))
-                System.exit(0);
-
         }
     }
 
-    private String formatString(MyEvent e) {
-        String forecast = Utils.getForecastByEvent(e);
-        ParsedData p = new ParsedData(e.getTemp(), e.getHumidity(), e.getWind(), e.getPressure(), e.getLight(), e.getTimestamp(), forecast);
-        ObjectMapper mapper = new ObjectMapper();
+    private String formatString(MyLegacySensorReceive e) {
         try {
-            return mapper.writeValueAsString(p);
+            ObjectMapper mapper = new ObjectMapper();
+            return mapper.writeValueAsString(ModelAdapter.convert(e));
         } catch (JsonProcessingException ignored) {
         }
         return "";
@@ -93,31 +94,31 @@ public class ParserActor extends MyActor {
     }
 
     private void spawnWorker() {
-        String workerName = "internal" + (workersCount + 1);
-        spawn(workerName, ParserActor.class);
+        String workerName = prefix() + (workersCount + 1);
+        spawn(workerName, LegacyParserActor.class);
         workersCount++;
-    }
-
-    private void sendToAggregator(String msg) {
-        sendMessage("aggregator", msg);
     }
 
     private void sendToSupervisor(String msg) {
         sendMessage("supervisor", msg);
     }
 
+    private void sendToPublisher(String msg) {
+        sendMessage(publish_name, msg);
+    }
+
     int a = 250;
 
     @Override
-    synchronized boolean shouldSelfDestroy() {
-        if (this.name.equals("parser")) {
+    public synchronized boolean shouldSelfDestroy() {
+        if (this.name.equals(host_name)) {
             return false;
         }
         long qs = queueSize();
         if (qs == 0) {
             a--;
         } else {
-            a = 100;
+            a = 250;
         }
         return a == 0;
     }

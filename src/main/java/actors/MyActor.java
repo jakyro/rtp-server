@@ -12,11 +12,11 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 import static common.Utils.safeSleep;
 
 abstract public class MyActor {
-    final String name;
+    public final String name;
     private final HashMap<String, ActorProcess> actors = new HashMap<>();
     private static final Queue<Packet> messageQueue = new ConcurrentLinkedQueue<>();
 
-    MyActor(String name, long pid) {
+    public MyActor(String name, long pid) {
         this.name = name;
         listenSelfInputStream();
         parseMessageQueue();
@@ -72,7 +72,7 @@ abstract public class MyActor {
         }
     }
 
-    abstract void parseMessage(Packet packet);
+    public abstract void parseMessage(Packet packet);
 
     private void parseMessageQueue() {
         new Thread(() -> {
@@ -121,7 +121,7 @@ abstract public class MyActor {
         }).start();
     }
 
-    boolean shouldSelfDestroy() {
+    public boolean shouldSelfDestroy() {
         return false;
     }
 }

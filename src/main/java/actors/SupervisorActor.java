@@ -9,11 +9,11 @@ public class SupervisorActor extends MyActor {
     }
 
     @Override
-    void parseMessage(Packet packet) {
+    public void parseMessage(Packet packet) {
 //        if (packet.getSource().equals("logger")) {
 //            System.out.println(packet.getData());
 //        }
-//        System.out.println("New message in queue for supervisor");
+        System.out.println("New message in queue for supervisor");
         System.out.println(packet.getData());
     }
 }

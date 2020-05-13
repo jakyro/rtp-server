@@ -16,7 +16,7 @@ public class PrinterActor extends MyActor {
     }
 
     @Override
-    void parseMessage(Packet packet) {
+    public void parseMessage(Packet packet) {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         JsonElement je = JsonParser.parseString(packet.getData());
         String prettyJsonString = gson.toJson(je);

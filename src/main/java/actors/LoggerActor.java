@@ -38,7 +38,7 @@ public class LoggerActor extends MyActor {
     }
 
     @Override
-    void parseMessage(Packet packet) {
+    public void parseMessage(Packet packet) {
         logger.info(packet.getData());
     }
 }

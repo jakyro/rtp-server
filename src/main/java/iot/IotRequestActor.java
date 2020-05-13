@@ -1,5 +1,6 @@
-package actors;
+package iot;
 
+import actors.MyActor;
 import com.here.oksse.OkSse;
 import com.here.oksse.ServerSentEvent;
 import model.Packet;
@@ -9,14 +10,15 @@ import okhttp3.Response;
 
 import java.util.concurrent.TimeUnit;
 
-public class RequestHandlerActor extends MyActor {
+public class IotRequestActor extends MyActor {
 
     public static void main(String[] args) {
-        new RequestHandlerActor(args[0], Long.parseLong(args[1]));
+        new IotRequestActor(args[0], Long.parseLong(args[1]));
     }
 
-    RequestHandlerActor(String name, long pid) {
+    IotRequestActor(String name, long pid) {
         super(name, pid);
+
         Request request = new Request.Builder().url("http://localhost:4000/iot").build();
         OkHttpClient client = new OkHttpClient.Builder().readTimeout(0, TimeUnit.SECONDS).build();
         OkSse okSse = new OkSse(client);
@@ -24,14 +26,14 @@ public class RequestHandlerActor extends MyActor {
     }
 
     @Override
-    void parseMessage(Packet packet) {
+    public void parseMessage(Packet packet) {
     }
 
     private static class RequestListener implements ServerSentEvent.Listener {
 
-        private final RequestHandlerActor parent;
+        private final IotRequestActor parent;
 
-        public RequestListener(RequestHandlerActor parent) {
+        public RequestListener(IotRequestActor parent) {
             this.parent = parent;
         }
 
@@ -42,7 +44,7 @@ public class RequestHandlerActor extends MyActor {
 
         @Override
         public void onMessage(ServerSentEvent sse, String id, String event, String message) {
-            parent.sendMessage("parser", message);
+            parent.sendMessage(IotParserActor.host_name, message);
         }
 
         @Override
